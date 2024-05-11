@@ -36,7 +36,7 @@ namespace GuessTheNumberApp
         {
             numericTxtNumber.ReadOnly = true;
             playAgainBtn.Visible = false;
-            saveScoreBtn.Visible = true;
+            saveScoreBtn.Visible = false;
             turnlbl.Text = game.GetRemainingTurns().ToString();
             scorelbl.Text = game.Score.ToString();
             LoadHighScore();
