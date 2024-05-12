@@ -136,8 +136,7 @@ namespace GuessTheNumberApp
                 saveScoreBtn.Visible = true;
                 playAgainBtn.Text = "CONTINUE ?";
                 currentScore = game.Score;
-                game.AddScore(currentScore);
-                scorelbl.Text = currentScore.ToString();
+                scorelbl.Text = game.Score.ToString();
             }
             else
             {
@@ -223,12 +222,12 @@ namespace GuessTheNumberApp
                 }
             }
         }
-        private void ResetGameState()
+        private void ResetGameState(int lastScore)
         {
             number = "";
             guessedNumbers.Clear();
             game = new GuessingGame();
-            currentScore = 0; 
+            game.AddScore(lastScore);
         }
         private void ResetUI()
         {
@@ -243,12 +242,16 @@ namespace GuessTheNumberApp
         }
         private void playAgainBtn_Click(object sender, EventArgs e)
         {
-            ResetGameState();
-            if (playAgainBtn.Text == "CONTINUE ?")
+            if (playAgainBtn.Text.Equals("CONTINUE ?"))
             {
-                game.AddScore(currentScore);
+                currentScore = game.Score;
+                ResetGameState(currentScore);
                 saveScoreBtn.Visible = false;
+            } else
+            {
+                ResetGameState(0);
             }
+
             ResetUI();
         }
        
@@ -291,7 +294,7 @@ namespace GuessTheNumberApp
         {
             SaveScore();
 
-            ResetGameState();
+            ResetGameState(0);
             ResetUI();
             LoadHighScore();
             saveScoreBtn.Visible = false;
